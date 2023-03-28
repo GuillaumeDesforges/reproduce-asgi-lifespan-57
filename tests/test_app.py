@@ -7,8 +7,8 @@ from api.app import app
 
 @pytest.mark.anyio
 async def test_post_post():
-    async with LifespanManager(app):
-        async with AsyncClient(app=app) as client:
+    async with LifespanManager(app) as manager:
+        async with AsyncClient(app=manager.app, base_url="http://test") as client:
             response = await client.get("/")
             assert response.status_code == 200
             response_json = response.json()

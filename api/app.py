@@ -17,6 +17,5 @@ app = FastAPI(lifespan=lifespan)
 @app.get("/")
 def index(request: Request):
     state = request.state._state
-    print(state)
     greeting = state["greeting"]
     return {"greeting": greeting}
