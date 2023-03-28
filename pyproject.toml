@@ -1,0 +1,9 @@
+[project]
+name = "api"
+version = "0.0.0"
+authors = [
+    { name = "Guillaume Desforges", email = "guillaume.desforges.pro@gmail.com" },
+]
+description = "Test API"
+requires-python = ">=3.11"
+dependencies = ["fastapi"]
