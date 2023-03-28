@@ -1,0 +1,175 @@
+============================================================================================================== test session starts ===============================================================================================================
+platform win32 -- Python 3.11.2, pytest-7.2.2, pluggy-1.0.0
+rootdir: C:\Users\me\company\reproduce-57
+plugins: anyio-3.6.2
+collected 2 items
+
+tests\test_app.py START
+{}
+FSTART
+{}
+F
+
+==================================================================================================================== FAILURES ====================================================================================================================
+____________________________________________________________________________________________________________ test_post_post[asyncio] _____________________________________________________________________________________________________________
+
+    @pytest.mark.anyio
+    async def test_post_post():
+        async with LifespanManager(app):
+            async with AsyncClient(app=app) as client:
+>               response = await client.get("/")
+
+tests\test_app.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv\Lib\site-packages\httpx\_client.py:1757: in get
+    return await self.request(
+.venv\Lib\site-packages\httpx\_client.py:1533: in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+.venv\Lib\site-packages\httpx\_client.py:1620: in send
+    response = await self._send_handling_auth(
+.venv\Lib\site-packages\httpx\_client.py:1648: in _send_handling_auth
+    response = await self._send_handling_redirects(
+.venv\Lib\site-packages\httpx\_client.py:1685: in _send_handling_redirects
+    response = await self._send_single_request(request)
+.venv\Lib\site-packages\httpx\_client.py:1722: in _send_single_request
+    response = await transport.handle_async_request(request)
+.venv\Lib\site-packages\httpx\_transports\asgi.py:162: in handle_async_request
+    await self.app(scope, receive, send)
+.venv\Lib\site-packages\fastapi\applications.py:276: in __call__
+    await super().__call__(scope, receive, send)
+.venv\Lib\site-packages\starlette\applications.py:122: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv\Lib\site-packages\starlette\middleware\errors.py:184: in __call__
+    raise exc
+.venv\Lib\site-packages\starlette\middleware\errors.py:162: in __call__
+    await self.app(scope, receive, _send)
+.venv\Lib\site-packages\starlette\middleware\exceptions.py:79: in __call__
+    raise exc
+.venv\Lib\site-packages\starlette\middleware\exceptions.py:68: in __call__
+    await self.app(scope, receive, sender)
+.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py:21: in __call__
+    raise e
+.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+.venv\Lib\site-packages\starlette\routing.py:718: in __call__
+    await route.handle(scope, receive, send)
+.venv\Lib\site-packages\starlette\routing.py:276: in handle
+    await self.app(scope, receive, send)
+.venv\Lib\site-packages\starlette\routing.py:66: in app
+    response = await func(request)
+.venv\Lib\site-packages\fastapi\routing.py:237: in app
+    raw_response = await run_endpoint_function(
+.venv\Lib\site-packages\fastapi\routing.py:165: in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+.venv\Lib\site-packages\starlette\concurrency.py:41: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+.venv\Lib\site-packages\anyio\to_thread.py:31: in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+.venv\Lib\site-packages\anyio\_backends\_asyncio.py:937: in run_sync_in_worker_thread
+    return await future
+.venv\Lib\site-packages\anyio\_backends\_asyncio.py:867: in run
+    result = context.run(func, *args)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+request = <starlette.requests.Request object at 0x00000170BD5737D0>
+
+    @app.get("/")
+    def index(request: Request):
+        state = request.state._state
+        print(state)
+>       greeting = state["greeting"]
+E       KeyError: 'greeting'
+
+api\app.py:21: KeyError
+______________________________________________________________________________________________________________ test_post_post[trio] ______________________________________________________________________________________________________________
+
+    @pytest.mark.anyio
+    async def test_post_post():
+        async with LifespanManager(app):
+            async with AsyncClient(app=app) as client:
+>               response = await client.get("/")
+
+tests\test_app.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv\Lib\site-packages\httpx\_client.py:1757: in get
+    return await self.request(
+.venv\Lib\site-packages\httpx\_client.py:1533: in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+.venv\Lib\site-packages\httpx\_client.py:1620: in send
+    response = await self._send_handling_auth(
+.venv\Lib\site-packages\httpx\_client.py:1648: in _send_handling_auth
+    response = await self._send_handling_redirects(
+.venv\Lib\site-packages\httpx\_client.py:1685: in _send_handling_redirects
+    response = await self._send_single_request(request)
+.venv\Lib\site-packages\httpx\_client.py:1722: in _send_single_request
+    response = await transport.handle_async_request(request)
+.venv\Lib\site-packages\httpx\_transports\asgi.py:162: in handle_async_request
+    await self.app(scope, receive, send)
+.venv\Lib\site-packages\fastapi\applications.py:276: in __call__
+    await super().__call__(scope, receive, send)
+.venv\Lib\site-packages\starlette\applications.py:122: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv\Lib\site-packages\starlette\middleware\errors.py:184: in __call__
+    raise exc
+.venv\Lib\site-packages\starlette\middleware\errors.py:162: in __call__
+    await self.app(scope, receive, _send)
+.venv\Lib\site-packages\starlette\middleware\exceptions.py:79: in __call__
+    raise exc
+.venv\Lib\site-packages\starlette\middleware\exceptions.py:68: in __call__
+    await self.app(scope, receive, sender)
+.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py:21: in __call__
+    raise e
+.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+.venv\Lib\site-packages\starlette\routing.py:718: in __call__
+    await route.handle(scope, receive, send)
+.venv\Lib\site-packages\starlette\routing.py:276: in handle
+    await self.app(scope, receive, send)
+.venv\Lib\site-packages\starlette\routing.py:66: in app
+    response = await func(request)
+.venv\Lib\site-packages\fastapi\routing.py:237: in app
+    raw_response = await run_endpoint_function(
+.venv\Lib\site-packages\fastapi\routing.py:165: in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+.venv\Lib\site-packages\starlette\concurrency.py:41: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+.venv\Lib\site-packages\anyio\to_thread.py:31: in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+.venv\Lib\site-packages\anyio\_backends\_trio.py:230: in run_sync_in_worker_thread
+    return await run_sync(
+.venv\Lib\site-packages\trio\_threads.py:215: in to_thread_run_sync
+    return await trio.lowlevel.wait_task_rescheduled(abort)
+.venv\Lib\site-packages\trio\_core\_traps.py:166: in wait_task_rescheduled
+    return (await _async_yield(WaitTaskRescheduled(abort_func))).unwrap()
+.venv\Lib\site-packages\outcome\_impl.py:138: in unwrap
+    raise captured_error
+.venv\Lib\site-packages\trio\_threads.py:161: in do_release_then_return_result
+    return result.unwrap()
+.venv\Lib\site-packages\outcome\_impl.py:138: in unwrap
+    raise captured_error
+.venv\Lib\site-packages\trio\_threads.py:175: in worker_fn
+    ret = sync_fn(*args)
+.venv\Lib\site-packages\anyio\_backends\_trio.py:225: in wrapper
+    return func(*args)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+request = <starlette.requests.Request object at 0x00000170BDFB4E50>
+
+    @app.get("/")
+    def index(request: Request):
+        state = request.state._state
+        print(state)
+>       greeting = state["greeting"]
+E       KeyError: 'greeting'
+
+api\app.py:21: KeyError
+================================================================================================================ warnings summary ================================================================================================================
+tests/test_app.py::test_post_post[trio]
+  C:\Users\me\company\reproduce-57\.venv\Lib\site-packages\anyio\_backends\_trio.py:164: TrioDeprecationWarning: trio.MultiError is deprecated since Trio 0.22.0; use BaseExceptionGroup (on Python 3.11 and later) or exceptiongroup.BaseExceptionGroup (earlier versions) instead (https://github.com/python-trio/trio/issues/2211)
+    class ExceptionGroup(BaseExceptionGroup, trio.MultiError):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================================================================================================ short test summary info =============================================================================================================
+FAILED tests/test_app.py::test_post_post[asyncio] - KeyError: 'greeting'
+FAILED tests/test_app.py::test_post_post[trio] - KeyError: 'greeting'
+========================================================================================================== 2 failed, 1 warning in 0.74s ==========================================================================================================
